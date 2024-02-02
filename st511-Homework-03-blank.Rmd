@@ -1,0 +1,124 @@
+---
+title: "ST 411/511 Homework 3"
+author: "Chimdi Chikezie"
+date: "Winter 2022"
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+library(ggplot2)
+```
+
+# Instructions
+
+This assignment is due by 11:59 PM, January 28th on Canvas via Gradescope. **You should submit your assignment as a PDF which you can compile using the provide .Rmd (R Markdown) template.** 
+
+> Note: Create a PDF by either compiling a PDF directly (via LaTeX) or from a Word Doc. Do not submit a PDF of the HTML output as they're cumbersome and difficult to read.
+
+Include your code in your solutions and indicate where the solutions for individual problems are located when uploading into Gradescope (Failure to do so will result in point deductions). You should also write complete, grammatically correct sentences for your solutions.
+
+Once you've completed the assignment, and before you submit it to Gradescope, you should read the document to ensure that (1) The computed values show up in the document, (2) the document "looks nice" (i.e. doesn't have extraneous code/outputs and includes _just_ the essentials), and (3) ensure the document is "easy" to read.
+
+#### Goals:
+
+1. Focus on understanding some of the _nuance_ of statistical hypothesis testing. Help students understand the definition of a p-value, understand the underlying uncertainty in hypothesis testing, and differences between the Z and t distributions.
+2. Practice conducting one and two-sample t-tests by hand in order to gain a sense of _intuition_ as to how they're conducted.
+
+```{r, include=FALSE}
+# Load libraries we need for the assignment
+library(ggplot2)
+library(Sleuth3)
+```
+
+
+\newpage
+## Question 1 (6 points)
+Answer whether each statement is True or False, and explain your reasoning.
+
+### (a) (2 points) A $p$-value tells you the probability that the null hypothesis is true.
+
+No
+
+
+
+### (b) (2 points) It is possible for a hypothesis test procedure to reject the null hypothesis even when the null hypothesis is true.
+
+<!-- Answer this question using 1-2 sentences. -->
+
+
+
+### (c) (2 points) Consider the null hypothesis $H_0: \mu = \mu_0$ versus a one-sided greater alternative $H_A: \mu > \mu_0$. For a fixed significance level $\alpha$ the critical value $z_{1 - \alpha}$ will be greater than the critical value $t_{(4) 1 - \alpha}$ (i.e., the critical value for a $t$-distribution with 4 degrees of freedom).
+
+<!-- Answer this question using 1-2 sentences. -->
+
+
+
+\newpage
+## Question 2 (4 points)
+A random sample of $n=10$ OSU students is obtained, and the college GPA of each is recorded. The GPAs of the 10 students in the sample are provided in the vector `gpa`.
+
+```{r}
+gpa <- c(3.1, 3.7, 4.0, 2.7, 2.5, 3.4, 3.5, 3.0, 1.9, 3.4)
+```
+
+### (4 points) Test the null hypothesis $H_0: \mu = 3.0$ versus the one-sided greater alternative $H_A: \mu > 3.0$ at significance level $\alpha=0.05$. Write a _complete_ conclusion stating the outcome of the test, the reason why you chose that conclusion, and what this conclusion means in the context of the question. 
+
+Note: Perform these calculations "by hand" (i.e. do not use the `t.test()` function or other built-in equivalents) using either mathematical notation or by writing code to compute the necessary values. If you write code to compute the values, make sure to output the value of the test statistic, the critical value and/or the p-value.
+
+<!-- Perform the test "by hand" below. -->
+
+
+
+\newpage
+## Question 3 (11 points)
+122 guinea pigs were randomly assigned to either a control group $(X_1, X_2, \ldots, X_m; m = 64)$ or to a treatment group that received a dose of *tubercle bacilli* $(Y_1, Y_2, \ldots, Y_n; n = 58)$. The lifetime, in days, for each guinea pig was recorded. The data are available as `ex0211` in the `Sleuth3` library.
+
+Note: Perform these calculations "by hand" (i.e. do not use the `t.test()` function or other built-in equivalents) using code which you write to compute the necessary values. Make sure to output the values requested in your document.
+
+```{r}
+# Load the data
+data(ex0211)
+```
+
+### (a) (2 points) Compute the sample mean and sample variance for each group.
+
+```{r}
+# Delete this text and compute the values
+```
+
+
+### (b) (2 points) Compute the pooled variance estimate $s_P^2$.
+
+```{r}
+# Delete this text and compute the values
+```
+
+
+### (c) (2 points) Compute the $t$-statistic for testing the null hypothesis that the difference in population mean survival time between these two treatments is zero ($H_0: \mu_X - \mu_Y = 0$).
+
+```{r}
+# Delete this text and compute the values
+```
+
+
+
+### (d) (2 points) Compute the critical value for a level $\alpha = 0.01$ one-sided test of the null hypothesis vs. the alternative that the difference in population mean survival time is greater than zero ($H_A: \mu_X - \mu_Y > 0$).
+
+```{r}
+# Delete this text and compute the values
+```
+
+
+### (e) (1 point) Compute the $p$-value for the test using the alternative hypothesis specified in part (d) above.
+
+```{r}
+# Delete this text and compute the values
+```
+
+
+### (f) (2 points) Based on your answers to parts (d) and (e), would you reject the null hypothesis $H_0: \mu_X - \mu_Y = 0$ vs. the alternative ($H_A: \mu_X - \mu_Y > 0$) at level $\alpha = 0.01$? Why? What does this conclusion mean in the context of the problem?
+
+<!-- State whether you would reject or fail to reject the null hypothesis and why (Use sentences). Then, were what the conclusion of the test means in the context of the scientific question being asked. -->
+

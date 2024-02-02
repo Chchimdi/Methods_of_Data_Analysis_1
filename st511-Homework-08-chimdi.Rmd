@@ -1,0 +1,292 @@
+---
+title: "ST 411/511 Homework 8"
+author: "Chimdi Chikezie"
+date: "Winter 2022"
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+library(ggplot2)
+```
+
+# Instructions
+
+This assignment is due by 11:59 PM, March 11th on Canvas via Gradescope. **You should submit your assignment as a PDF which you can compile using the provide .Rmd (R Markdown) template.** 
+
+> Note: Create a PDF by either compiling a PDF directly (via LaTeX) or from a Word Doc. Do not submit a PDF of the HTML output as they're cumbersome and difficult to read.
+
+Include your code in your solutions and indicate where the solutions for individual problems are located when uploading into Gradescope (Failure to do so will result in point deductions). You should also write complete, grammatically correct sentences for your solutions.
+
+Once you've completed the assignment, and before you submit it to Gradescope, you should read the document to ensure that (1) The computed values show up in the document, (2) the document "looks nice" (i.e. doesn't have extraneous code/outputs and includes _just_ the essentials), and (3) ensure the document is "easy" to read.
+
+#### Goals:
+
+1. Understand the theoretical structure and ideas behind simple linear regression models.
+2. Practice making scatterplots and linear regression models in R.
+3. Practice interpreting R's linear regression outputs.
+4. Learn how to assess the uncertainty in estimates for regression coefficients and model predictions through the use of confidence and prediction intervals.
+5. Learn the basics of variable transformations in linear regressions and assessing the assumptions of linear regression through diagnostic plots.
+
+```{r include=FALSE}
+# Load libraries we need for the assignment
+library(ggplot2)
+library(Sleuth3)
+```
+
+
+\newpage
+## Question 1 (2 points)
+
+### (a) (1 point) What is wrong with this formulation of the regression model: $Y=\beta_0+\beta_1X$? How would you express it instead?
+
+It is not really emphasizing that we’re modeling the mean of Y, so I would express it as $\mu(Y|X) = \beta_0 + \beta_1X$.
+
+
+
+### (b) (1 point) What assumptions are made about the distribution of the explanatory variable in the simple linear regression model?
+
+1. The mean of each response is related to the explanatory variable by a linear function: $\mu(Y|X) = \beta_0 + \beta_1X$.
+
+2. All pairs of points, (explanatory, response) are statistically independent.
+
+3. The variance of each response is the same for all values of the explanatory variable.
+
+4. All responses are taken from Normally shaped populations.
+
+
+
+\newpage
+## Question 2 (6 points) - Modified from *Sleuth* 7.27
+
+Black wheatears, *Oenanthe leucura*, are small birds of Spain and Morocco. Males of the species demonstrate an exaggerated sexual display by carrying heavy stones to nesting cavities. Different males carry somewhat different sized stones, prompting a study of whether larger stones may signal a higher health status. M. Soler et al. (1999) calculated the average stone mass (grams) carried by each of 21 male black wheatears, along with T-cell response measurements reflecting their immune systems' strengths. The data are in `ex0727`.
+
+### (a) (1 point) Make a scatter plot of `Mass` ($X$) versus `Tcell` ($Y$) including the estimated regression line.
+
+```{r}
+ggplot(data = ex0727, aes(x=Mass, y=Tcell)) +
+  geom_point() +
+  theme_linedraw() +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+
+### (b) (2 points) Fit the linear model using the `lm()` function to regress `Tcell` on `Mass` (i.e., model the mean of `Tcell` as a function of `Mass`). Use the `summary()` function to view more information about the estimated regression model. Provide an interpretation for the regression coefficients and state whether or not they are statistically significant and why.
+
+```{r}
+mod1 <- lm(Tcell ~ Mass, data = ex0727)
+summary(mod1)
+```
+From this model output, $\hat{\beta}_0 = 0.08750$ (SE = 0.0787) and $\hat{\beta}_1 = 0.0328$ (SE = 0.01064).  Also, according to the $p$-value associated with the estimate of the $y$-intercept, $p = 0.27996$, there is not a convincing evidence that the $y$-intercept is different from zero. 
+<!-- In a few sentences, interpret the coefficients and state whether or not they are statistically significant and why -->
+
+
+### (c) (1 point) Construct 90% confidence intervals for the regression parameters using the `confint()` function. Interpret the confidence interval you construct for the slope parameter.
+
+```{r}
+confint(mod1, level=0.90)
+```
+With 95% confidence, the plausible values of the intercept is between (8.429827773, 1.216469e+01) while the slope is (0.000291958, 4.826804e-04).
+
+
+### (d) (1 point) Estimate the mean T-cell measurement for a new bird that is observed to carry stones averaging 4 grams in weight by using the `predict()` function. Construct a 95% confidence interval for *mean* T-cell measurement for that new bird. Interpret your 95% confidence interval.
+
+```{r}
+predict(mod1, newdata=data.frame("Mass"=4), interval="confidence", level=0.95)
+```             
+
+With 95% confidence, the plausible values of the mean T-cell measurement for a new bird when carrying stones averaging 4 grams in weight is between (0.1383913, 0.2991746)
+
+
+### (e) (1 point) Construct a 95% *prediction* interval for T-cell measurement for the new bird in part (d). Interpret your prediction interval and descrive how the prediction interval compare to the confidence interval from part (d)? 
+
+```{r}
+predict(mod1, newdata=data.frame("Mass"=4), interval="prediction", level=0.95)
+```
+With 95% confidence, the plausible prediction values of a single T-cell measurement for a new bird when carrying stones averaging 4 grams in weight is between (0.03111638, 0.4064495)
+
+The prediction interval is wider than the confidence interval because we are making prediction about a single person and not a population mean.
+
+
+
+\newpage
+## Question 3 (11 points)
+
+Suppose that the estimated simple linear regression of a response $Y$ on a predictor $X$ based on $n=6$ observations produces the following residuals:
+
+```{r}
+resid <- c(-0.09, 0.18, -0.27, 0.16, -0.06, 0.09)
+residdf <- data.frame(resid)
+```
+
+Note: For this question, all of the computations should be performed "by-hand". Make sure that the outputs from the code that end up in your document are _just_ the requested value(s) and not any intermediate steps.
+
+### (a) (1 point) What is the estimate of $\sigma^2$?
+
+
+```{r}
+n <- nrow(residdf)
+sigma2 <- sum(resid^2) / (n-2)
+sprintf("sigma^2: %f", sigma2)
+sig <- sqrt(sigma2)
+sig
+```
+
+### (b) (2 points) Further, you know that the estimated regression parameters are $\hat{\beta}_0=-0.54$ and $\hat{\beta}_1=0.08$. Additionally, the sample mean of $X$ is 13.5 and the sample variance of $X$ is 15.5. Find the standard errors of the two estimated regression parameters.
+
+```{r}
+Xx <- 13.5
+Vx <- 15.5
+
+resid.se <- sqrt(sum(residdf^2) / (n - 2))
+SEbeta0hat <- resid.se * sqrt(1 / n + Xx^2 / ((n - 1) * Vx))
+sprintf("SE(beta0hat): %f", SEbeta0hat)
+
+SEbeta1hat <- resid.se * sqrt(1 / ((n - 1) * Vx))
+sprintf("SE(beta1hat): %f", SEbeta1hat)
+```
+
+### (c) (2 points) Use the standard error you calculated in (b) to test the null hypothesis $H_0: \beta_1=0$ that the true population slope has value 0. State your test statistic, two-sided $p$-value, and what you conclude from the test.
+
+```{r}
+beta1hat <- 0.08
+t <- (beta1hat - 0)/SEbeta1hat
+sprintf("test statistic: %f", t)
+
+pvalue <- 2 * (1 - pt(abs(t), n - 2))
+sprintf("P-value: %f", pvalue)
+```
+I reject the null hypothesis for the alternative at 5% significance level. We do not have enough evidence to show that the true population slope has value 0.
+
+This means that there is a relationship between the two parameters.
+
+
+### (d) (1 point) What is the mean value of $Y$ we would predict when $X=12$? (E.g., what is $\hat{\mu}(Y|X=12)$?)
+
+```{r}
+B0 <- -0.54
+B1 <- 0.08
+X <- 12
+meany <- (B0) + B1*X
+sprintf("Y: %f", meany)
+```
+
+
+### (e) (2 points) Calculate the standard error of $\hat{\mu}(Y|X=12)$ and use this value, along with your result from part (d), to find a 95% confidence interval for mean $Y$ when $X=12$.
+
+```{r}
+m1 <- 1/n
+m2 <- (X - Xx)^2
+m3 <- (n-1)*Vx
+sem <- sqrt(sigma2 * (m1 + m2/m3))
+
+sprintf("SEmuhat: %f", sem)
+
+a <- 0.05
+te <- qt(0.975,n-2)
+CIU <- meany + te*sem
+CIL <- meany - te*sem
+sprintf("Confidence interval lower bound: %f", CIL)
+sprintf("Confidence interval upper bound: %f", CIU)
+```
+### (f) (2 points) Calculate the standard error of $Pred(Y|X=12)$ and use this value, along with your result from part (d), to find a 95% prediction interval for mean $Y$ when $X=12$.
+
+```{r}
+nem <- sqrt(sigma2 * (1 + m1 + m2/m3))
+#SEpredy <- sqrt(sigma2 * (1 + (1/n) + ((X-Xx)^2)/((n-1)*Vx)))
+sprintf("Prediction SE: %f", nem)
+
+a <- 0.05
+te <- qt(1-(a/2),n-2)
+PIU <- meany + te*nem
+PIL <- meany - te*nem
+sprintf("Prediction interval lower bound: %f", PIL)
+sprintf("Prediction interval upper bound: %f", PIU)
+```
+
+
+### (g) (1 point) The sample correlation between $X$ and $Y$ is 0.8831. Find the value of $R^2$ for the regression considered in the previous parts of this question.
+
+```{r}
+R2 <- 0.8831^2
+sprintf("R^2: %f", R2)
+```
+
+
+
+\newpage
+## Question 4 (8 points) - Modified from *Sleuth* 8.26
+
+The `ex0826` data set contains the average mass, average metabolic rate, and average lifespan for 95 species of mammals. Kleiber's law states that the metabolic rate of an animal species, on average, is proportional to its mass raised to the power 0.75. Judge the adequacy of this theory with these data by following these steps:
+
+### (a) (1 point) Make a scatterplot of metabolic rate ($Y$) versus mass$^{0.75}$ ($X$) for these 95 species. Based on your scatterplot, does fitting a linear model seem like an appropriate method for describing the relationship between metabolic rate and mass$^{0.75}$?
+
+```{r}
+mass <- ex0826$Mass
+ex0826$Massnew <- mass^0.75
+ggplot(data = ex0826, aes(x=Massnew, y=Metab)) +
+  geom_point() +
+  theme_linedraw()
+```
+Yes, it is appropriate
+
+
+
+### (b) (1 point) Fit a linear regression model of metabolic rate ($Y$) regressed on mass$^{0.75}$ ($X$). Provide the estimated coefficients, estimated standard error $\hat{\sigma}$, and $R^2$. (You need to indicate what these are in the R output -- don't just include the R output.)
+
+```{r}
+mod1 <- lm(Metab ~ Massnew, data = ex0826)
+summary(mod1)
+```
+
+
+- Estimated intercept coefficient: -481.346
+- Estimated slope coefficient: 395.016
+- Estimated standard error (sigma-hat): 1992
+- Estimated R-squared: 0.9891
+
+
+### (c) (2 points) Plot the residuals vs. the fitted values from the model fit in part b). Examine the plot and discuss whether i) the linear fit seems appropriate; and ii) the assumptions for simple linear regression inference to be valid appear to be met. 
+
+```{r}
+ggplot(data = ex0826, aes(Massnew, Metab)) +
+  geom_point() + 
+  theme_linedraw() +
+  geom_smooth(method="lm", se=FALSE)
+```
+Yes it is. It shows that:
+1. There is normal distribution.
+2. The is a linear relationship between X and Y.
+3. The variance is not equal.
+
+
+### (d) (2 points) Plot the residuals vs. the fitted values from the model fit in part b) again, but this time, adjust the limits of the x-axis to view just the data points whose fitted values are between 0 and 25,000 (You can consider setting the x-axis values to 10,000 as well to really "Zoom in" on the residuals). Does looking at this "zoomed-in" diagnostic plot change your assessment of whether or not the linear regression assumptions are met? Why?
+
+> Note: You can update the limits of your plot, assuming you're using `ggplot2`, by "adding the layer": `scale_x_continuous(limits=c(0, 25000))`
+
+```{r}
+ggplot(data = ex0826, aes(Massnew, Metab)) +
+  geom_point() + 
+  theme_linedraw() +
+  geom_smooth(method="lm", se=FALSE) +
+  scale_x_continuous(limits=c(0, 25000))
+```
+The linear fit is appropriate becaue the distribution looks approximately normal.
+
+
+### (e) (1 points) It has also been suggested that metabolic rate is one of the best single predictors of species lifespan. Fit a linear regression model of lifespan ($Y$) regressed on metabolic rate ($X$). Provide the estimated coefficients, estimated standard error $\hat{\sigma}$, and $R^2$. (You need to indicate what these are in the R output -- don't just include the R output.)
+
+```{r}
+mod1 <- lm(Life ~ Metab, data = ex0826)
+summary(mod1)
+```
+
+
+- Estimated intercept coefficient: 1.030e+01
+- Estimated slope coefficient: 3.873e-04
+- Estimated standard error (sigma-hat): 10.57
+- Estimated R-squared: 0.3287
+
+
+### (f) (1 point) How much variation in the distribution of mammal lifespans can be explained by metabolic rate?

@@ -1,0 +1,642 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{ST 411/511 - Methods of Data Analysis I}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Midterm Exam}
+\author{Chimdi Chikezie}
+\date{Due: Wednesday, February 9th before 11:59PM}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={ST 411/511 - Methods of Data Analysis I},
+  pdfauthor={Chimdi Chikezie},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{directions}{%
+\subsubsection{Directions:}\label{directions}}
+
+Please read the directions below \emph{very} carefully as failure to
+follow them will result in point deductions, receiving a zero on the
+exam, and/or having your name forwarded to the Office of Student
+Affairs.
+
+\begin{itemize}
+\tightlist
+\item
+  Submissions must be made as entirely typed PDFs to Gradescope prior to
+  the deadline. Exams which are handwritten or contain images, scans,
+  etc. of handwritten work will not be accepted/graded.
+\item
+  No late submissions are allowed for any reason unless you have prior
+  approval from the instructor. See the course syllabus for more
+  details.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Failing to ``knit'' your document to PDF is not a valid reason to
+    submit your exam after the deadline. Start the exam early and knit
+    your document frequently.
+  \item
+    Failing to upload your document to Gradescope is not a valid reason
+    to submit your exam after the deadline. Verify your exam has been
+    successfully submitted and allow yourself time to ``troubleshoot''
+    any potential issues.
+  \item
+    Failing to upload the correct document to Gradescope is not a valid
+    reason to submit your exam after the deadline. Verify that you've
+    uploaded the correct document prior to the deadline.
+  \end{itemize}
+\item
+  Exams should be ``knitted'' directly to PDF using the provided
+  template.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Knitting your document to a Word Doc file and then converting it to
+    PDF is not desirable but I'll live if you do this.
+  \item
+    Do not knit your document to an HTML file and then convert it to
+    PDF. The formatting is terrible and it makes them difficult to read.
+    Exams where this occurs will be penalized.
+  \end{itemize}
+\item
+  Indicate all pages containing solutions to the individual questions in
+  Gradescope. Exams which are not properly indicated will be penalized
+  on a per-question basis.
+\item
+  Do not include extraneous code/outputs (i.e.~``Scratch work''). Exams
+  which include extraneous code/outputs will be penalized.
+\item
+  Answer questions using complete sentences. Solutions which are not
+  written as complete sentences or are difficult to read and/or
+  understand will be penalized.
+\item
+  Exams which are messy, hard to read, unclear, disorganized, etc. will
+  be penalized.
+\item
+  The exam is open book and open note. You can utilize any material
+  found in the text or the course Canvas page but nothing else.
+\item
+  Do not talk or seek assistance from anyone else (students, peers,
+  other faculty, online message boards, etc.).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Exams where ``copying'' or student collaboration is suspected will
+    receive grades of zero until students arrange to meet with the
+    instructor to explain the similarities.
+  \end{itemize}
+\item
+  Do not share code or solutions with anyone else.
+\end{itemize}
+
+\newpage
+
+\hypertarget{question-1-10-points}{%
+\subsection{Question 1 (10 points)}\label{question-1-10-points}}
+
+For each part below, indicate whether the statement is TRUE or FALSE and
+provide a 1-2 sentence explanation as to why.
+
+\hypertarget{a.-2-points-if-a-95-confidence-interval-for-an-unknown-population-mean-is-21.4-78.7-this-means-there-is-a-95-probability-that-the-true-population-mean-is-between-21.4-and-78.7.}{%
+\subsubsection{\texorpdfstring{a. (2 points) If a 95\% confidence
+interval for an unknown population mean is (21.4, 78.7), this means
+there is a 95\% \emph{probability} that the true population mean is
+between 21.4 and
+78.7.}{a. (2 points) If a 95\% confidence interval for an unknown population mean is (21.4, 78.7), this means there is a 95\% probability that the true population mean is between 21.4 and 78.7.}}\label{a.-2-points-if-a-95-confidence-interval-for-an-unknown-population-mean-is-21.4-78.7-this-means-there-is-a-95-probability-that-the-true-population-mean-is-between-21.4-and-78.7.}}
+
+\begin{itemize}
+\tightlist
+\item
+  Answer: FALSE
+\item
+  Reason: Confidence intervals is not probability. It gives us 95\%
+  confidence that the true population mean will fall between 21.4 and
+  78.7.
+\end{itemize}
+
+\hypertarget{b.-2-points-after-conducting-a-z-test-the-corresponding-p-value-of-the-test-is-0.0456.-this-means-precisely-that-the-probability-that-the-null-hypothesis-is-true-is-0.0456.}{%
+\subsubsection{b. (2 points) After conducting a Z-test, the
+corresponding p-value of the test is 0.0456. This means, precisely, that
+the probability that the null hypothesis is true is
+0.0456.}\label{b.-2-points-after-conducting-a-z-test-the-corresponding-p-value-of-the-test-is-0.0456.-this-means-precisely-that-the-probability-that-the-null-hypothesis-is-true-is-0.0456.}}
+
+\begin{itemize}
+\tightlist
+\item
+  Answer: FALSE
+\item
+  Reason: P-value does not determine if the null hypothesis is true,
+  however, it determines the probability of getting a result at least as
+  extreme as the statistic observed..
+\end{itemize}
+
+\hypertarget{c.-2-points-in-a-study-on-handedness-in-households-with-exactly-two-children-it-was-found-that-older-siblings-are-much-more-likely-to-be-left-handed-than-younger-siblings-a-statistically-significant-result.-the-researchers-should-conclude-that-being-born-first-causes-the-older-children-at-least-in-some-cases-to-be-left-handed.}{%
+\subsubsection{\texorpdfstring{c.~(2 points) In a study on
+``handedness'' in households with exactly two children, it was found
+that older siblings are much more likely to be left-handed than younger
+siblings (A statistically significant result). The researchers should
+conclude that being born first \emph{causes} the older children (at
+least in some cases) to be
+left-handed.}{c.~(2 points) In a study on ``handedness'' in households with exactly two children, it was found that older siblings are much more likely to be left-handed than younger siblings (A statistically significant result). The researchers should conclude that being born first causes the older children (at least in some cases) to be left-handed.}}\label{c.-2-points-in-a-study-on-handedness-in-households-with-exactly-two-children-it-was-found-that-older-siblings-are-much-more-likely-to-be-left-handed-than-younger-siblings-a-statistically-significant-result.-the-researchers-should-conclude-that-being-born-first-causes-the-older-children-at-least-in-some-cases-to-be-left-handed.}}
+
+\begin{itemize}
+\tightlist
+\item
+  Answer: FALSE
+\item
+  Reason: This is an observational study and we cannot make a causal
+  conclusion. There might be other factors that make those children to
+  be left handed and not only being a first born.
+\end{itemize}
+
+\hypertarget{d.-2-points-the-los-angeles-dodgers-a-major-league-baseball-team-played-81-home-games-against-17-other-teams.-for-these-games-the-dodgers-played-the-same-team-over-the-course-of-two-to-four-consecutive-nights.-since-these-were-different-games-i.e.-they-always-started-with-a-score-of-0-0-the-games-should-be-considered-to-be-independent-of-one-another.}{%
+\subsubsection{\texorpdfstring{d.~(2 points) The Los Angeles Dodgers, a
+major league baseball team, played 81 home games against 17 other teams.
+For these games, the Dodgers played the same team over the course of two
+to four consecutive nights. Since these were different games, i.e.~they
+always started with a score of 0-0, the games should be considered to be
+\emph{independent} of one
+another.}{d.~(2 points) The Los Angeles Dodgers, a major league baseball team, played 81 home games against 17 other teams. For these games, the Dodgers played the same team over the course of two to four consecutive nights. Since these were different games, i.e.~they always started with a score of 0-0, the games should be considered to be independent of one another.}}\label{d.-2-points-the-los-angeles-dodgers-a-major-league-baseball-team-played-81-home-games-against-17-other-teams.-for-these-games-the-dodgers-played-the-same-team-over-the-course-of-two-to-four-consecutive-nights.-since-these-were-different-games-i.e.-they-always-started-with-a-score-of-0-0-the-games-should-be-considered-to-be-independent-of-one-another.}}
+
+\begin{itemize}
+\tightlist
+\item
+  Answer: TRUE
+\item
+  Reason: Because the winning probability of all the games are the same
+  for all games.
+\end{itemize}
+
+\hypertarget{e.-2-points-a-professional-dk64-speedrunner-and-current-101-record-holder-wishes-to-purchase-14-different-candies-for-their-significant-other-on-valentines-day.-they-visit-two-different-large-grocery-stores-and-record-the-prices-of-the-same-14-candies.-if-they-want-to-see-if-the-average-price-of-the-14-candies-are-different-between-the-two-stores-then-they-should-conduct-an-equal-variance-or-a-welchs-two-sample-t-test.}{%
+\subsubsection{e. (2 points) A professional DK64 speedrunner, and
+current 101\% record holder, wishes to purchase 14 different candies for
+their significant other on Valentine's Day. They visit two different
+large grocery stores and record the prices of the same 14 candies. If
+they want to see if the average price of the 14 candies are different
+between the two stores then they should conduct an equal variance or a
+Welch's two-sample
+t-test.}\label{e.-2-points-a-professional-dk64-speedrunner-and-current-101-record-holder-wishes-to-purchase-14-different-candies-for-their-significant-other-on-valentines-day.-they-visit-two-different-large-grocery-stores-and-record-the-prices-of-the-same-14-candies.-if-they-want-to-see-if-the-average-price-of-the-14-candies-are-different-between-the-two-stores-then-they-should-conduct-an-equal-variance-or-a-welchs-two-sample-t-test.}}
+
+\begin{itemize}
+\tightlist
+\item
+  Answer: Welch's two-sample t-test
+\item
+  Reason: Welch's two-sample t-test is used to test that means are the
+  same when their variances are significantly different.
+\end{itemize}
+
+\newpage
+
+\hypertarget{question-2-13-points}{%
+\subsection{Question 2 (13 points)}\label{question-2-13-points}}
+
+Dairy scientists are interested in researching the ascorbic acid content
+of dairy cows raised in Benton County. Specifically, they would like to
+know if the population mean ascorbic acid content (measured in mg. per
+cc), is different than 220 mg/cc. To conduct their study, they gather a
+random sample from six different cows raised in Benton County, the
+values or which are below (You can \emph{knit} the exam to see the
+printed table):
+
+\begin{longtable}[]{@{}rrrrrr@{}}
+\toprule
+\endhead
+255 & 190 & 55 & 137 & 138 & 174 \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{a.-2-points-based-on-the-researchers-question-of-interest-write-out-the-appropriate-null-and-alternative-hypotheses-for-a-statistical-hypothesis-test-using-correct-statistical-notation.}{%
+\subsubsection{a. (2 points) Based on the researcher's question of
+interest, write out the appropriate null and alternative hypotheses for
+a statistical hypothesis test using correct statistical
+notation.}\label{a.-2-points-based-on-the-researchers-question-of-interest-write-out-the-appropriate-null-and-alternative-hypotheses-for-a-statistical-hypothesis-test-using-correct-statistical-notation.}}
+
+\begin{align*}
+H_0:&\mu_p =220 mg/cc\\
+
+H_A:&\mu_P \neq 220 mg/cc
+\end{align*}
+
+\hypertarget{b.-4-points-conduct-an-appropriate-statistical-hypothesis-test-by-hand-i.e.-you-can-use-r-code-or-mathematical-notation-but-do-not-use-any-built-in-test-functions-like-t.test-wilcox.test-binom.test-etc.-to-answer-the-researchers-question-of-interest-at-the-5-significance-level.-specifically-write-out-the-value-of-the-test-statistic-the-p-value-and-a-conclusion-in-the-spaces-provided-below.-for-the-conclusion-be-sure-to-state-the-statistical-outcome-of-the-test-why-you-arrived-at-that-conclusion-and-what-this-conclusion-means-for-the-researchers-using-the-context-of-the-question.-please-show-all-relevant-work-in-the-space-indicatedprovided-below.}{%
+\subsubsection{\texorpdfstring{b. (4 points) Conduct an appropriate
+statistical hypothesis test, by hand (i.e.~you can use R code or
+mathematical notation, but do not use any built-in test functions like
+\texttt{t.test()}, \texttt{wilcox.test()}, \texttt{binom.test()}, etc.),
+to answer the researcher's question of interest at the 5\% significance
+level. Specifically, write out the value of the test statistic, the
+p-value, and a conclusion in the spaces provided below. For the
+conclusion, be sure to state the statistical outcome of the test, why
+you arrived at that conclusion, and what this conclusion means for the
+researchers \textbf{using the context of the question}. Please show all
+relevant work in the space indicated/provided
+below.}{b. (4 points) Conduct an appropriate statistical hypothesis test, by hand (i.e.~you can use R code or mathematical notation, but do not use any built-in test functions like t.test(), wilcox.test(), binom.test(), etc.), to answer the researcher's question of interest at the 5\% significance level. Specifically, write out the value of the test statistic, the p-value, and a conclusion in the spaces provided below. For the conclusion, be sure to state the statistical outcome of the test, why you arrived at that conclusion, and what this conclusion means for the researchers using the context of the question. Please show all relevant work in the space indicated/provided below.}}\label{b.-4-points-conduct-an-appropriate-statistical-hypothesis-test-by-hand-i.e.-you-can-use-r-code-or-mathematical-notation-but-do-not-use-any-built-in-test-functions-like-t.test-wilcox.test-binom.test-etc.-to-answer-the-researchers-question-of-interest-at-the-5-significance-level.-specifically-write-out-the-value-of-the-test-statistic-the-p-value-and-a-conclusion-in-the-spaces-provided-below.-for-the-conclusion-be-sure-to-state-the-statistical-outcome-of-the-test-why-you-arrived-at-that-conclusion-and-what-this-conclusion-means-for-the-researchers-using-the-context-of-the-question.-please-show-all-relevant-work-in-the-space-indicatedprovided-below.}}
+
+\begin{itemize}
+\item
+  Test statistic: (xbar - mu) / sqrt(s/n) = (158.167 - 220) /
+  sqrt(4427.767/6) = -2.276164
+\item
+  p-value: 2 * (1 - pt(abs(150.0685), 6 - 1)) = 0.071882
+\item
+  Conclusion: I fail to reject the null hypothesis because the P-value
+  is greater than alpha. We do have have enough evidence to show that
+  the population mean ascorbic acid content (measured in mg. per cc), is
+  equal to 220 mg/cc.
+\end{itemize}
+
+\textbf{Show your work for this question below. If you write R code,
+please make sure the computed test statistic and p-value are shown as
+outputs (And please don't leave a bunch of extraneous code/outputs in
+your solutions).}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{val }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{255}\NormalTok{, }\DecValTok{190}\NormalTok{, }\DecValTok{55}\NormalTok{, }\DecValTok{137}\NormalTok{, }\DecValTok{138}\NormalTok{, }\DecValTok{174}\NormalTok{)}
+
+\NormalTok{mu }\OtherTok{\textless{}{-}} \DecValTok{220}
+\NormalTok{xbar }\OtherTok{\textless{}{-}} \FloatTok{158.167}
+\NormalTok{s }\OtherTok{\textless{}{-}} \FloatTok{4427.767}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{6}
+
+\NormalTok{t }\OtherTok{\textless{}{-}}\NormalTok{ (xbar }\SpecialCharTok{{-}}\NormalTok{ mu) }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(s}\SpecialCharTok{/}\NormalTok{n)}
+\FunctionTok{sprintf}\NormalTok{(}\StringTok{"t = \%f"}\NormalTok{, t)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "t = -2.276164"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pvalue }\OtherTok{\textless{}{-}} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pt}\NormalTok{(}\FunctionTok{abs}\NormalTok{(t), n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\FunctionTok{sprintf}\NormalTok{(}\StringTok{"pvalue = \%f"}\NormalTok{, pvalue)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "pvalue = 0.071882"
+\end{verbatim}
+
+\hypertarget{c.-3-points-compute-by-hand-and-interpret-a-95-confidence-interval-for-the-population-mean.-write-your-confidence-interval-in-interval-form-i.e.-lower-bound-upperbound-and-interpret-the-interval-in-the-context-of-this-particular-question.-show-your-work-in-the-space-indicated-below.}{%
+\subsubsection{\texorpdfstring{c.~(3 points) Compute, by hand, and
+interpret a 95\% confidence interval for the population mean. Write your
+confidence interval in ``interval form'', i.e.~\emph{(lower bound,
+upperbound)}, and interpret the interval \textbf{in the context of this
+particular question}. Show your work in the space indicated
+below.}{c.~(3 points) Compute, by hand, and interpret a 95\% confidence interval for the population mean. Write your confidence interval in ``interval form'', i.e.~(lower bound, upperbound), and interpret the interval in the context of this particular question. Show your work in the space indicated below.}}\label{c.-3-points-compute-by-hand-and-interpret-a-95-confidence-interval-for-the-population-mean.-write-your-confidence-interval-in-interval-form-i.e.-lower-bound-upperbound-and-interpret-the-interval-in-the-context-of-this-particular-question.-show-your-work-in-the-space-indicated-below.}}
+
+\begin{itemize}
+\tightlist
+\item
+  95\% confidence interval: (88.33601, 227.998)
+\end{itemize}
+
+CI upper\_limit \textless- x +- (error * sqrt(s/n))
+
+error = 1 - (0.05/2), 6 - 1 = 0.975,5 qt(0.975,5) = 2.570582
+
+CI lower bound = 158.166667 - (2.571 * sqrt(4427.767/6)) = 88.33601 CI
+upper bound = 158.166667 + (2.571 * sqrt(4427.767/6)) = 227.998
+
+\begin{itemize}
+\tightlist
+\item
+  Interpretation:
+\end{itemize}
+
+We are 95\% confident that the true population mean ascorbic acid
+content (measured in mg. per cc) of dairy cows raised in Benton County
+is between 88.33601 and 227.998
+
+\textbf{Show your work for this question below. If you write R code,
+please make sure the computed values are shown as outputs (And please
+don't leave a bunch of extraneous code/outputs in your solutions).}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ (}\FloatTok{0.05}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)}
+\NormalTok{error }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(cv,}\DecValTok{5}\NormalTok{)}
+
+\NormalTok{lowerbound }\OtherTok{\textless{}{-}}\NormalTok{ xbar }\SpecialCharTok{{-}}\NormalTok{ (error }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(s}\SpecialCharTok{/}\NormalTok{n))}
+\FunctionTok{sprintf}\NormalTok{(}\StringTok{"lowerbound = \%f"}\NormalTok{, lowerbound)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "lowerbound = 88.336012"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{upperbound }\OtherTok{\textless{}{-}}\NormalTok{ xbar }\SpecialCharTok{+}\NormalTok{ (error }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(s}\SpecialCharTok{/}\NormalTok{n))}
+\FunctionTok{sprintf}\NormalTok{(}\StringTok{"upperbound = \%f"}\NormalTok{, upperbound)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "upperbound = 227.997988"
+\end{verbatim}
+
+\hypertarget{d.-2-points-in-discussing-the-outcome-of-your-hypothesis-test-in-part-b.-with-the-researchers-they-inform-you-that-they-believe-that-the-population-distribution-is-likely-to-be-heavily-and-i-mean-heavily-right-skewed.-why-does-this-new-knowledge-about-the-population-distribution-make-you-doubt-the-validity-of-the-test-you-conducted-in-part-b.-be-specific-and-be-sure-to-explain-the-underlying-reasoning-in-your-explanation.}{%
+\subsubsection{\texorpdfstring{d.~(2 points) In discussing the outcome
+of your hypothesis test in part b. with the researchers, they inform you
+that they believe that the population distribution is likely to be
+heavily (and I mean \emph{heavily}) right-skewed. Why does this new
+knowledge about the population distribution make you doubt the validity
+of the test you conducted in part b.? Be specific and be sure to explain
+the underlying reasoning in your
+explanation.}{d.~(2 points) In discussing the outcome of your hypothesis test in part b. with the researchers, they inform you that they believe that the population distribution is likely to be heavily (and I mean heavily) right-skewed. Why does this new knowledge about the population distribution make you doubt the validity of the test you conducted in part b.? Be specific and be sure to explain the underlying reasoning in your explanation.}}\label{d.-2-points-in-discussing-the-outcome-of-your-hypothesis-test-in-part-b.-with-the-researchers-they-inform-you-that-they-believe-that-the-population-distribution-is-likely-to-be-heavily-and-i-mean-heavily-right-skewed.-why-does-this-new-knowledge-about-the-population-distribution-make-you-doubt-the-validity-of-the-test-you-conducted-in-part-b.-be-specific-and-be-sure-to-explain-the-underlying-reasoning-in-your-explanation.}}
+
+If we have an outlier, it can make the distribution rightly skewed, then
+the mean value will be changed based on those outliers and we will not
+be able to get a good estimation of our distribution from the mean the
+value. T-test depends on mean value and when the mean value is not good
+enough, it looses its validity. This is the reason that makes me doubt
+the validity of the test you conducted in part b.
+
+\hypertarget{e.-2-points-is-this-study-an-example-of-a-randomized-experiment-or-an-observational-study-how-can-you-tell}{%
+\subsubsection{e. (2 points) Is this study an example of a randomized
+experiment or an observational study? How can you
+tell?}\label{e.-2-points-is-this-study-an-example-of-a-randomized-experiment-or-an-observational-study-how-can-you-tell}}
+
+It is an observational study because the researcher is not influencing
+the ascorbic acid content.
+
+\newpage
+
+\hypertarget{question-3-12-points}{%
+\subsection{Question 3 (12 points)}\label{question-3-12-points}}
+
+A European professional basketball league is trying to decide whether a
+new workout supplement should be banned for also being a ``performance
+enhancing'' drug. To test the workout supplement, they measure how many
+free-throws a person successfully makes while shooting a basketball
+through a standard, regulation height hoop in 4 minutes. For each of the
+11 randomly selected individuals, the league measures the number of
+successful free-throws the person makes while \emph{unmedicated} (before
+taking the new supplement) and again while \emph{medicated} (after
+taking the drug). If more free throws are made while \emph{medicated}
+than \emph{unmedicated} then the league will ban the supplement. A
+variety of summaries are given below (Note: ``(Medicated -
+Unmedicated)'' denotes the pairwise differences for each observation):
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+& Unmedicated & Medicated & (Medicated - Unmedicated) \\
+\midrule
+\endhead
+\(n\) & 11 & 11 & 11 \\
+\(\bar{X}\) & 20.73 & 23.55 & 2.82 \\
+\(s^2\) & 21.42 & 29.27 & 10.56 \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{a.-2-points-using-correct-statistical-notation-write-out-the-null-and-alternative-hypotheses-needed-to-conduct-a-t-test-which-will-help-the-league-decide-whether-or-not-they-should-ban-the-supplement.}{%
+\subsubsection{a. (2 points) Using correct statistical notation, write
+out the null and alternative hypotheses needed to conduct a t-test which
+will help the league decide whether or not they should ban the
+supplement.}\label{a.-2-points-using-correct-statistical-notation-write-out-the-null-and-alternative-hypotheses-needed-to-conduct-a-t-test-which-will-help-the-league-decide-whether-or-not-they-should-ban-the-supplement.}}
+
+\begin{align*}
+H_0:&\mu_M - \mu_U=0\\
+H_A:&\mu_M - \mu_U> 0
+\end{align*}
+
+\hypertarget{the-r-output-below-shows-some-of-the-output-from-two-different-t-tests-one-of-which-is-the-equal-variance-independent-two-sample-t-test-and-the-other-is-for-a-paired-t-test.}{%
+\paragraph{The R output below shows some of the output from two
+different t-tests, one of which is the equal variance (independent)
+two-sample t-test and the other is for a paired
+t-test.}\label{the-r-output-below-shows-some-of-the-output-from-two-different-t-tests-one-of-which-is-the-equal-variance-independent-two-sample-t-test-and-the-other-is-for-a-paired-t-test.}}
+
+\begin{verbatim}
+    Two Sample t-test
+
+data:  Medicated and Unmedicated
+t = 1.3128, df = 20, p-value = 0.1021
+sample estimates:
+mean of Medicated mean of Unmedicated 
+         23.54545            20.72727 
+\end{verbatim}
+
+\begin{verbatim}
+    Paired t-test
+
+data:  Medicated and Unmedicated
+t = 2.8758, df = 10, p-value = 0.008252
+sample estimates:
+mean of the differences 
+               2.818182 
+\end{verbatim}
+
+\hypertarget{b.-2-points-which-one-of-the-above-tests-is-the-most-appropriate-to-use-to-answer-the-question-of-interest-explain-why}{%
+\subsubsection{b. (2 points) Which one of the above tests is the most
+appropriate to use to answer the question of interest? Explain
+why?}\label{b.-2-points-which-one-of-the-above-tests-is-the-most-appropriate-to-use-to-answer-the-question-of-interest-explain-why}}
+
+Paired t-test. This is because the European professional basketball
+league is created 2 pairs: 1. Before testing 2. After testing
+
+\hypertarget{c.-2-points-using-the-test-output-you-chose-in-part-b.-and-the-hypotheses-you-stated-in-part-a.-write-a-conclusion-for-the-test.-let-alpha-0.05.-be-sure-to-1-write-a-sentence-in-regards-to-the-outcome-of-your-test-2-a-brief-explanation-as-to-why-you-chose-that-particular-outcome-and-3-what-the-outcome-of-your-test-means-in-the-context-of-the-problem.}{%
+\subsubsection{\texorpdfstring{c.~(2 points) Using the test output you
+chose in part b. and the hypotheses you stated in part a., write a
+conclusion for the test. Let \(\alpha = 0.05\). Be sure to (1) write a
+sentence in regards to the outcome of your test, (2) a brief explanation
+as to why you chose that particular outcome, and (3) what the outcome of
+your test means in the context of the
+problem.}{c.~(2 points) Using the test output you chose in part b. and the hypotheses you stated in part a., write a conclusion for the test. Let \textbackslash alpha = 0.05. Be sure to (1) write a sentence in regards to the outcome of your test, (2) a brief explanation as to why you chose that particular outcome, and (3) what the outcome of your test means in the context of the problem.}}\label{c.-2-points-using-the-test-output-you-chose-in-part-b.-and-the-hypotheses-you-stated-in-part-a.-write-a-conclusion-for-the-test.-let-alpha-0.05.-be-sure-to-1-write-a-sentence-in-regards-to-the-outcome-of-your-test-2-a-brief-explanation-as-to-why-you-chose-that-particular-outcome-and-3-what-the-outcome-of-your-test-means-in-the-context-of-the-problem.}}
+
+We reject the null hypothesis at 0.05 significance level because our
+p-value is less than alpha. We have evidence that more free throws were
+made while medicated than unmedicated, therefore the league will ban the
+supplement.
+
+\hypertarget{d.-2-points-which-of-the-following-plots-best-represents-the-p-value-associated-with-this-particular-hypothesis-test-here-assume-the-shaded-region-represents-the-p-value-of-the-test.}{%
+\subsubsection{\texorpdfstring{d.~(2 points) Which of the following
+plots best represents the \(p\)-value associated with this particular
+hypothesis test? Here, assume the shaded region represents the
+\(p\)-value of the
+test.}{d.~(2 points) Which of the following plots best represents the p-value associated with this particular hypothesis test? Here, assume the shaded region represents the p-value of the test.}}\label{d.-2-points-which-of-the-following-plots-best-represents-the-p-value-associated-with-this-particular-hypothesis-test-here-assume-the-shaded-region-represents-the-p-value-of-the-test.}}
+
+\begin{center}\includegraphics{st511-midterm-blank_files/figure-latex/unnamed-chunk-3-1} \end{center}
+
+The p-value is best represented by plot: (C)
+
+\hypertarget{e.-2-points-based-on-the-test-you-chose-in-part-b.-compute-by-hand-a-95-confidence-interval.-write-your-confidence-interval-in-interval-form-i.e.-lower-bound-upperbound-and-show-your-work-in-the-space-indicated-below.-note-you-do-not-need-to-interpret-this-confidence-interval.}{%
+\subsubsection{\texorpdfstring{e. (2 points) Based on the test you chose
+in part b., compute, by hand, a 95\% confidence interval. Write your
+confidence interval in ``interval form'', i.e.~\emph{(lower bound,
+upperbound)} and show your work in the space indicated below. Note: You
+do not need to interpret this confidence
+interval.}{e. (2 points) Based on the test you chose in part b., compute, by hand, a 95\% confidence interval. Write your confidence interval in ``interval form'', i.e.~(lower bound, upperbound) and show your work in the space indicated below. Note: You do not need to interpret this confidence interval.}}\label{e.-2-points-based-on-the-test-you-chose-in-part-b.-compute-by-hand-a-95-confidence-interval.-write-your-confidence-interval-in-interval-form-i.e.-lower-bound-upperbound-and-show-your-work-in-the-space-indicated-below.-note-you-do-not-need-to-interpret-this-confidence-interval.}}
+
+\begin{itemize}
+\tightlist
+\item
+  95\% confidence interval: (1.042340, 4.594024)
+\end{itemize}
+
+\textbf{Show your work for this question below. If you write R code,
+please make sure the computed values are shown as outputs (And please
+don't leave a bunch of extraneous code/outputs in your solutions).}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ (}\FloatTok{0.05}\NormalTok{)}
+\NormalTok{error }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(cv,}\DecValTok{10}\NormalTok{)}
+\NormalTok{s }\OtherTok{\textless{}{-}} \FloatTok{10.56} 
+\NormalTok{xbar }\OtherTok{\textless{}{-}} \FloatTok{2.818182}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{11}
+
+\NormalTok{lowerbound }\OtherTok{\textless{}{-}}\NormalTok{ xbar }\SpecialCharTok{{-}}\NormalTok{ (error }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(s}\SpecialCharTok{/}\NormalTok{n))}
+\FunctionTok{sprintf}\NormalTok{(}\StringTok{"lowerbound = \%f"}\NormalTok{, lowerbound)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "lowerbound = 1.042340"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{upperbound }\OtherTok{\textless{}{-}}\NormalTok{ xbar }\SpecialCharTok{+}\NormalTok{ (error }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(s}\SpecialCharTok{/}\NormalTok{n))}
+\FunctionTok{sprintf}\NormalTok{(}\StringTok{"upperbound = \%f"}\NormalTok{, upperbound)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "upperbound = 4.594024"
+\end{verbatim}
+
+\hypertarget{f.-2-points-explain-why-we-fail-to-reject-rather-than-accept-a-null-hypothesis-when-our-test-statistic-is-less-extreme-than-the-critical-value.}{%
+\subsubsection{f.~(2 points) Explain why we ``fail to reject'' rather
+than ``accept'' a null hypothesis when our test statistic is less
+extreme than the critical
+value.}\label{f.-2-points-explain-why-we-fail-to-reject-rather-than-accept-a-null-hypothesis-when-our-test-statistic-is-less-extreme-than-the-critical-value.}}
+
+Accepting the null hypothesis would indicate that we have proven an
+effect doesn't exist. Failing to reject the null indicates that our
+sample did not provide sufficient evidence to conclude that the effect
+exists.
+
+\end{document}

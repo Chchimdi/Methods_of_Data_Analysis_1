@@ -1,0 +1,80 @@
+---
+title: 'Lab 4: t-test Assumptions and Transformations'
+date: 'ST 411/511: Methods of Data Analysis I'
+output:
+  html_notebook: default
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load the packages we will use in this lab
+library(ggplot2)
+library(Sleuth3)
+```
+
+## Notes
+
+- Remember that you can click "Preview Notebook" to view this document in the Viewer pane. This may be helpful because math notation that I write between "$" will appear formatted correctly.
+
+## Outline
+
+In today's lab, we will 
+
+- Learn a little more R functionality
+- See how to add new variables to a data frame
+- See how to examine assumptions of the $t$-test
+- See how to do a simulation study for confidence intervals
+
+## Some additional R functionality
+
+So far, we've been dealing with existing datasets that come in the form of *data.frames* and that are available in the `Sleuth3` library. As you've seen a *data.frame* is a specific type of R object -- it's a rectangular array of data, where the rows contain observations on different subjects (or sampling units or experimental units), and the columns contain different variables that are measured and/or recorded on those subjects.
+
+Let's look at `ex0222` from the `Sleuth3` package, which contains data on the Armed Forces Qualifying Test (AFQT) score percentiles and component test scores in arithmetic reasoning, word knowledge, paragraph comprehension, and mathematical knowledge for a sample of 1,278 U.S. women and 1,306 U.S. men in 1981.
+
+Remember you can use `?` to pop up the help file for a data set or function in the help pane, which can be useful for seeing column names or function arguments. The `head()` function will print out the first 6 rows of data, which can be useful for getting a sense of the data and viewing the column names. We can look at the number of rows and columns in a data frame by using the `dim()` function, where the output is the number of rows, then the number of columns.
+
+Also note that when you run this code chunk you have two panels that pop up below the chunk. The first is output from the `head()` command and the second is from the `dim()` command. You can click on them to view that output.
+
+```{r}
+print(getwd())
+```
+
+```{r}
+gend <- read.csv("/Users/chikezic/Desktop/OSU/ST411511/Homework/Report/gen_data.csv")
+dim(gend)
+```
+
+```{r}
+ProjectA <- read.csv("/Users/chikezic/Desktop/OSU/ST411511/Homework/Report/Cholesterol_projectA.csv")
+ProjectB <- read.csv("/Users/chikezic/Desktop/OSU/ST411511/Homework/Report/Cholesterol_projectB.csv")
+View(ProjectA)
+View(ProjectB)
+```
+
+$H_0: \mu_D = 0$
+$H_A: \mu_D > 0$
+
+
+```{r}
+ggplot(ProjectA, aes(x = DiffsA)) +
+  geom_histogram() 
+```
+
+
+```{r}
+DiffsA <- ProjectA$Before - ProjectA$After8weeks
+m <- median(DiffsA)
+m
+nDiffsA <- length(DiffsA)
+nDiffsA
+
+Kstat <- sum(DiffsA > 0)
+Kstat
+```
+```{r}
+binom.test(Kstat, n=nDiffsA, p=0.5, alt="greater")
+```
+

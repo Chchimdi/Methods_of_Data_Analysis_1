@@ -1,0 +1,150 @@
+---
+title: "ST 411/511 Homework 0"
+author: "Chimdi Chikezie"
+date: "Winter 2022"
+output:
+  pdf_document: default
+---
+
+# Instructions
+
+This assignment is due by 11:59 PM, January 7th on Canvas via Gradescope. **You should submit your assignment as a PDF which you can compile using the provide .Rmd (R Markdown) template.** 
+
+> Note: Create a PDF by either compiling a PDF directly (via LaTeX) or from a Word Doc. Do not submit a PDF of the HTML output as they're cumbersome and difficult to read.
+
+Include your code in your solutions and indicate each page containing solutions for individual problems when uploading into Gradescope (Failure to do so will result in point deductions). You should also write complete, grammatically correct sentences for your solutions.
+
+Once you've completed the assignment, and before you submit it to Gradescope, you should read the document to ensure that (1) The computed values show up in the document, (2) the document "looks nice" (i.e. doesn't have extraneous code/outputs and includes _just_ the essentials), and (3) ensure the document is "easy" to read.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+\newpage
+## Question 1 
+
+The goals of this assignment are:
+
+1. Motivate students to install both R and Rstudio.
+2. Give students an opportunity to "knit" an R Markdown file to a PDF
+3. Find any issues students have with "knitting" documents and give them a chance to get help in fixing those issues.
+4. Give students an opportunity to submit documents to Gradescope.
+
+You will find directions for installing R and RStudio on our course Canvas page. So first, install R. Then, install RStudio. Finally, open this document in "RStudio" and not the "R Gui" or any other piece of software you might have installed.
+
+As you're working through your assignments, you'll likely notice a few things. First, each question starts on a new page. This is by design to make homework submissions more uniform in appearance so that they're easier to grade quickly. Please adhere to this style requirement. You'll also notice I've left "comments" within the document for you to delete and replace with your answers. That is, when you see something similar to the following
+
+```
+<!-- Delete this text and answer some question -->
+```
+
+you should delete the text and answer the question. Note here as well that when I say, "Delete this text...", I mean to delete the entire line including the `<!--` and `-->` symbols. My plan is to leave these types of comments in the first few assignments and gradually reduce them as you grow more comfortable with writing your answers in R Markdown. Here's an example below:
+
+### (a) (0 Points) This is something similar to what you'll see in the homework assignments except I'll likely be asking you to answer some question using either code, text, or both. So for instance, you might see something like: "What's your favorite color?" (Don't worry about actually answering this question until Part (b))
+
+<!-- Delete this line of text and write a sentence about what your favorite color is -->
+
+
+### (b) (0 points) If I were answering the question from Part (a) above, I would like write my answer to the question, "What's your favorite color?" as follows:
+
+My favorite color is purple.
+
+
+### (c) (0 points) Notice in the answer I wrote in Part (b) that (1) I deleted the `<!-- Delete this line of text and write a sentence about what your favorite color is -->` text and (2) I answered the question in a complete sentence. Statistics is much more than just about computing numerical answers. It's about communicating information, ideas, inferences and predictions to an audience. As such, I want you to use the homeworks to practice writing about data-based values in writing.
+
+
+
+\newpage
+## Question 2
+At the top of this document (In RStudio), you'll notice a "Knit" button (_Wait until you get to Question 3 before hitting the "knit" button_). Ideally, when you press that button, your computer will run some software and turn what you're writing here into a PDF document. One of the benefits of R Markdown is that it's able to combine writing, code, and math into a single document without having to copy/paste from different sources. So in this question, we'll ensure that everything is working properly. 
+
+> If you encounter errors when compiling the document, first look at a few of my suggestions in Question 3. If you continue to have issues, go to Canvas and see if someone has posted a similar issue in the "Tech Support" discussion board. If your issue seems to be unique, tell us what it is that is happening so that we can help you.
+
+### (a) (0 points) In the code chunk below, click the "Green Arrow" in the upper right hand corner of the chunk to run the lines of code in the "Console" pane of RStudio. Note: You only need to run the code chunk one time so long as it runs successfully and without errors.
+
+```{r, eval = FALSE}
+install.packages("Sleuth3")
+```
+
+You'll know if this line of code ran successfully if you're able run the following line of code (Again, by clicking the green arrow button):
+
+```{r}
+library(Sleuth3)
+mean(ex0112$BP)
+hist(ex0112$BP)
+```
+
+In the assignments, you might see pre-placed code chunks for you to fill out that might look similar to the following:
+
+```{r}
+# Delete this and perform some task
+```
+
+Here again, the `# Delete this and perform some task` is what's known as a "comment". It's a line of "code" that isn't actually going to be run when you "knit" your document. In your assignments, delete the comments (i.e. Delete `# Delete this and....`) that I write just write the code needed to answer the question.
+
+
+### (b) (0 points) LaTeX is one of the most commonly used "mark up languages" used to write mathematical/statistical notation. In your assignments, you absolutely do not need write your solutions using LaTeX. Writing you answers in plain text is perfectly fine (but please do your best to format it in such a way as your math is easy to follow). However, I will typically include some LaTeX in the assignment templates. Meaning, you'll need to have a "TeX distribution" installed in order to "knit" your assignments. 
+
+If you've already installed a TeX distribution that you like, feel free to skip this portion of the problem. If you're asking yourself, "What the heck is TeX/LaTeX and what am I getting myself into" (Don't worry, you'll be fine, I promise) then run the following command (i.e. "Click the green arrow button in the upper right hand corner of the code chunk below):
+
+```{r, eval = FALSE}
+install.packages(c("tinytex"), dependencies = TRUE)
+tinytex::install_tinytex()
+```
+
+These lines of code will install a TeX distribution for you so that the following code looks like "math" when you hit the "knit" button:
+$$ f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{1}{2} \left( \frac{x - \mu}{\sigma} \right)^2}$$
+
+> Note: One of the most common "issues" students have when trying to submit homework is errors related to "unicode" symbols. In the lectures, we'll often see mathematical notation such as $H_0: \mu = 0$, where $\mu$ is the Greek letter "mu". If you copy and paste the "mu" symbol into your document, it is **very** likely that you'll receive an error. Rather than copy/pasting symbols from the lecture slides, write them in their English equivalents (e.g. mu) or write them using LaTeX (e.g. $\mu$).
+
+
+\newpage
+## Question 3 
+At this point, go ahead and hit the "Knit" button that is at the top of this document. If a PDF file pops up, congrats, you can move on to Question 4. If something has gone wrong, there's a few things I'd like you to try before checking/posting in the Tech Support Discussion board on Canvas.
+
+
+### (a) (0 Points) If you're using Windows, you may need to install another piece of software to get everything working. Open this link in your web browser (https://cran.rstudio.com/bin/windows/Rtools/), download `rtools40v2-x86_64.exe` (Assuming you're using Windows 10 which I think is 64-bit ... pretty sure about this anyway), and then install the downloaded file. Once the file is installed, run the following code chunk by clicking the "green arrow" in the upper right hand corner of the code chunk below:
+
+```{r, eval = FALSE}
+write('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file = "~/.Renviron", append = TRUE)
+```
+
+Finally, close RStudio (File -> Quit Session) and then re-open RStudio. Click the knit button again. If this doesn't work, move on to Part (b) below.
+
+
+### (b) (0 Points) Run the following code chunk by clicking the "green arrow" in the upper right hand corner of the code chunk below:
+
+```{r, eval = FALSE}
+install.packages(c("knitr", "rmarkdown"), dependencies = TRUE)
+```
+
+Once R finishes running, click the "knit" button. If you're still having issues, go to the "Tech Support" discussion board on Canvas and see if someone is having a similar issue as you are and, if not, make a new post describing the issues/errors you're having. Include screenshots or other information we can use to help diagnose exactly what isn't working.
+
+
+
+\newpage
+## Question 4 (1 point) 
+In this course, you'll be submitting your assignments to "Gradescope" which is honestly one of the neatest homework submission systems I've ever seen. When you're submitting, you'll need to (1) upload a PDF of your solutions into Gradescope and then (2) Indicate which pages contain solutions to which questions. The grading process is drastically slowed down if you don't indicate the pages which contain your solutions to each question. Hence, if you don't indicate the pages, or don't indicate _all_ of the pages, or indicate extraneous/incorrect pages, you'll have points deducted for each question which isn't properly indicated.
+
+To try and prevent these types of points from being deducted, you'll find a screen capture I made explaining the submission process on Canvas (In the Course Materials module). So answer the questions below, knit this R Markdown file to PDF, and then practice submitting the file to Gradescope (You can find the link on the Homework 0 Assignment page on Canvas). If you're successful, you'll receive full credit for this assignment.
+
+
+### (a) If you have questions related to the weekly course content, rather than emailing the instructor/TAs, where should you post your course related questions?
+
+The questions should be posted in the Discussion Board which will be created weekly on Canvas.
+
+### (b) Getting into the habit of attending office hours regularly is a great way (the best way in my opinion) to have your questions answered. When are James' office hours and where is his office?
+
+James' office hours are: Tuesdays: 11:00am - 12:00pm and Fridays: 1:00pm - 2:00pm.
+His office is located at 283 Weniger Hall.
+
+
+### (d) What are you most looking forward to this new year?
+
+As a new graduate student, everything seems overwhelming, I'm looking forward to putting my best foot forward these first weeks so that I will be excited towards the end of the semester/year.
+
+
+\newpage
+## Question 5 
+You're ready to submit your homework so (1) click the "knit" button to compile your document, (2) look over the PDF output to make sure it looks "right" (Is all of the text being displayed?) and (3) submit the file to Gradescope. 

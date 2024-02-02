@@ -29,5 +29,5 @@ Through completing these assignments, I have gained:
 - `Simple_Linear_Regression/`: Holds assignments focused on building and interpreting simple linear regression models.
 
 ## Tools Used
-- Statistical analysis software (e.g., R, Python with libraries such as pandas, NumPy, SciPy, and Matplotlib for data manipulation and visualization)
+- Statistical analysis software (R, for data manipulation and visualization)
 - Spreadsheet software for preliminary data analysis and visualization
